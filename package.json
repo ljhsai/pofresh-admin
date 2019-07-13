@@ -6,7 +6,9 @@
         "mqtt-connection": "^4.0.0",
         "pofresh-logger": "^1.0.0",
         "pofresh-monitor": "^1.0.0",
-        "pofresh-scheduler": "^1.0.0"
+        "pofresh-scheduler": "^1.0.0",
+        "socket.io": "^2.2.0",
+        "socket.io-client": "^2.2.0"
     },
     "peerDependencies": {
         "pofresh-logger": "^1.0.0"
