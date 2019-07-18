@@ -119,7 +119,6 @@ describe('agent', function () {
                     should.not.exist(err);
                     should.exist(resp);
                     resp.should.eql(msg1);
-                    self();
                 });
 
                 master.request(monitorId2, moduleId2, msg2, function (err, resp) {
@@ -127,7 +126,6 @@ describe('agent', function () {
                     should.not.exist(err);
                     should.exist(resp);
                     resp.should.eql(msg2);
-                    self();
                 });
             });
 
@@ -139,7 +137,6 @@ describe('agent', function () {
             monitor1.close();
             monitor2.close();
             master.close();
-
             done();
         }, WAIT_TIME);
     });
