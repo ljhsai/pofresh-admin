@@ -10,39 +10,6 @@ var masterHost = '127.0.0.1';
 var masterPort = 3333;
 
 describe('agent', function () {
-    // it('should emit a error if master agent listen a port in use', function(done) {
-    // 	var master = new Master();
-    // 	var invalidPort = 80;
-    // 	var errorCount = 0;
-    // 	master.on('error', function() {
-    // 		errorCount++;
-    // 		console.log('err', errorCount);
-    // 	});
-    // 	master.listen(invalidPort);
-    //
-    // 	setTimeout(function() {
-    // 		errorCount.should.equal(1);
-    // 		done();
-    // 	}, WAIT_TIME);
-    // });
-
-    // it('should fail if the monitor connect to the invalid address', function(done) {
-    // 	var monitor = new Monitor({});
-    // 	var host = 'localhost';
-    // 	var invalidPort = -80;
-    //
-    // 	var errorCount = 0;
-    // 	monitor.connect(invalidPort, host, function(err) {
-    // 		should.exist(err);
-    // 		errorCount++;
-    // 		monitor.close();
-    // 	});
-    //
-    // 	setTimeout(function() {
-    // 		errorCount.should.equal(1);
-    // 		done();
-    // 	}, WAIT_TIME);
-    // });
 
     var authServer = function (msg, env, cb) {
         cb('ok');
