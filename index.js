@@ -6,9 +6,6 @@ module.exports.createMonitorConsole = consoleService.createMonitorConsole;
 module.exports.adminClient = require('./lib/client/client');
 
 exports.protocols = {
-	MQTTServer: require('./lib/protocol/mqtt/mqttServer'),
-	MQTTClient: require('./lib/protocol/mqtt/mqttClient'),
-
 	SIOServer: require('./lib/protocol/socketio/sioServer'),
 	SIOClient: require('./lib/protocol/socketio/sioClient'),
 }
