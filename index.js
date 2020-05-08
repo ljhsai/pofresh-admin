@@ -1,5 +1,5 @@
-var fs = require('fs');
-var consoleService = require('./lib/consoleService');
+const fs = require('fs');
+const consoleService = require('./lib/consoleService');
 
 module.exports.createMasterConsole = consoleService.createMasterConsole;
 module.exports.createMonitorConsole = consoleService.createMonitorConsole;
@@ -11,6 +11,7 @@ exports.protocols = {
 }
 
 exports.modules = {};
+
 fs.readdirSync(__dirname + '/lib/modules').forEach(function(filename) {
 	if (/\.js$/.test(filename)) {
 		var name = filename.substr(0, filename.lastIndexOf('.'));
