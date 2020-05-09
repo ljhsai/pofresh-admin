@@ -63,13 +63,13 @@ The relations of the components is as below:
 ## Usage
 
 ```javascript
-var admin = require("pofresh-admin");
+const admin = require("pofresh-admin");
 ```
 
 Create a consoleService instance in master process.
 
 ```javascript
-var masterConsole = admin.createMasterConsole({  
+const masterConsole = admin.createMasterConsole({  
     port: masterPort  
 });  
 ```
@@ -91,7 +91,7 @@ masterConsole.start(function(err) {
 Create a consoleService instance in monitor process. 
 
 ```javascript
-var monitorConsole = admin.createMonitorConsole({  
+const monitorConsole = admin.createMonitorConsole({  
     id: serverId,  
     type: serverType,  
     host: masterInfo.host,  
@@ -107,42 +107,44 @@ Developers can customize modules to collect and export additional status as they
 ### Simple example  
 
 ```javascript
-var Module = function(app, opts) {
-  opts = opts || {};
-  this.type = opts.type || 'pull';  // pull or push 
-  this.interval = opts.interval || 5; // pull or push interval
+class Module {
+  constructor(app, opts) {
+    opts = opts || {};
+    this.type = opts.type || 'pull';  // pull or push 
+    this.interval = opts.interval || 5; // pull or push interval
+  }
+
+  monitorHandler (agent, msg) {
+    var word = agent.id + ' hello pofresh';
+    // notify admin messages to master
+    agent.notify(Module.moduleId, {serverId: agent.id, body: word});
+  }
+
+  masterHandler (agent, msg) {
+      // if no message, then notify all monitors to fetch datas
+      if(!msg) {
+        agent.notifyAll(Module.moduleId);
+        return;
+      }
+      // collect data from monitor
+      var data = agent.get(Module.moduleId);
+      if(!data) {
+        data = {};
+        agent.set(Module.moduleId, data);
+      }
+    
+      data[msg.serverId] = msg;
+  }
+
+  clientHandler (agent, msg, cb) {
+    // deal with client request,directly return data cached in master
+    cb(null, agent.get(Module.moduleId) || {});
+  }
 };
 
 Module.moduleId = 'hellopofresh';
 
 module.exports = Module;
-
-Module.prototype.monitorHandler = function(agent, msg) {
-  var word = agent.id + ' hello pofresh';
-  // notify admin messages to master
-  agent.notify(Module.moduleId, {serverId: agent.id, body: word});
-};
-
-Module.prototype.masterHandler = function(agent, msg) {
-  // if no message, then notify all monitors to fetch datas
-  if(!msg) {
-    agent.notifyAll(Module.moduleId);
-    return;
-  }
-  // collect data from monitor
-  var data = agent.get(Module.moduleId);
-  if(!data) {
-    data = {};
-    agent.set(Module.moduleId, data);
-  }
-
-  data[msg.serverId] = msg;
-};
-
-Module.prototype.clientHandler = function(agent, msg, cb) {
-  // deal with client request,directly return data cached in master
-  cb(null, agent.get(Module.moduleId) || {});
-};
 ```
 
 ### Register customized modules
