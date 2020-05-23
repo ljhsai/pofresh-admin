@@ -8,7 +8,9 @@ module.exports.adminClient = require('./lib/client/client');
 exports.protocols = {
     SIOServer: require('./lib/protocol/socketio/sioServer'),
     SIOClient: require('./lib/protocol/socketio/sioClient'),
-}
+    mqttServer: require('./lib/protocol/mqtt/mqttServer'),
+    mqttClient: require('./lib/protocol/mqtt/mqttClient'),
+};
 
 exports.modules = {};
 
