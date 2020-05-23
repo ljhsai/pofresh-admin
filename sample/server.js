@@ -1,17 +1,17 @@
-var MasterConsole = require('../lib/consoleService');
-var TestModule = require('./module');
-var port = 3300;
-var host = 'localhost';
+const MasterConsole = require('../lib/consoleService');
+const TestModule = require('./module');
+const port = 3300;
+const host = 'localhost';
 
-var opts = {
-	port: port,
-	master: true
+const opts = {
+    port: port,
+    master: true
 }
 
-var masterConsole = MasterConsole.createMasterConsole(opts);
-var module = TestModule();
-masterConsole.register(TestModule.moduleId, module);
+const masterConsole = MasterConsole.createMasterConsole(opts);
+const myModule = TestModule();
+masterConsole.register(TestModule.moduleId, myModule);
 
-masterConsole.start(function() {
+masterConsole.start(() => {
 
-})
+});

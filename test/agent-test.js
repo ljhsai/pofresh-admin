@@ -1,40 +1,40 @@
-var should = require('should');
-var flow = require('flow');
-var Master = require('../lib/master/masterAgent');
-var Monitor = require('../lib/monitor/monitorAgent');
-var ConsoleService = require('../lib/consoleService');
+const should = require('should');
+const flow = require('flow');
+const Master = require('../lib/master/masterAgent');
+const Monitor = require('../lib/monitor/monitorAgent');
+const ConsoleService = require('../lib/consoleService');
 
-var WAIT_TIME = 200;
+const WAIT_TIME = 200;
 
-var masterHost = '127.0.0.1';
-var masterPort = 3333;
+const masterHost = '127.0.0.1';
+const masterPort = 3333;
 
 describe('agent', function () {
 
-    var authServer = function (msg, env, cb) {
+    let authServer = function (msg, env, cb) {
         cb('ok');
     };
 
-    var masterConsole = {
+    let masterConsole = {
         authServer: authServer
     };
 
     it('should forward the message from master to the right monitor and get the response by reuqest', function (done) {
-        var monitorId1 = 'connector-server-1';
-        var monitorId2 = 'area-server-1';
-        var monitorType1 = 'connector';
-        var monitorType2 = 'area';
-        var moduleId1 = 'testModuleId1';
-        var moduleId2 = 'testModuleId2';
-        var msg1 = {msg: 'message to monitor1'};
-        var msg2 = {msg: 'message to monitor2'};
+        let monitorId1 = 'connector-server-1';
+        let monitorId2 = 'area-server-1';
+        let monitorType1 = 'connector';
+        let monitorType2 = 'area';
+        let moduleId1 = 'testModuleId1';
+        let moduleId2 = 'testModuleId2';
+        let msg1 = {msg: 'message to monitor1'};
+        let msg2 = {msg: 'message to monitor2'};
 
-        var req1Count = 0;
-        var req2Count = 0;
-        var resp1Count = 0;
-        var resp2Count = 0;
+        let req1Count = 0;
+        let req2Count = 0;
+        let resp1Count = 0;
+        let resp2Count = 0;
 
-        var monitorConsole1 = {
+        let monitorConsole1 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req1Count++;
@@ -43,7 +43,7 @@ describe('agent', function () {
             }
         };
 
-        var monitorConsole2 = {
+        let monitorConsole2 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req2Count++;
@@ -52,8 +52,8 @@ describe('agent', function () {
             }
         };
 
-        var master = new Master(masterConsole);
-        var monitor1 = new Monitor({
+        let master = new Master(masterConsole);
+        let monitor1 = new Monitor({
             consoleService: monitorConsole1,
             id: monitorId1,
             type: monitorType1,
@@ -61,7 +61,7 @@ describe('agent', function () {
                 host: '127.0.0.1'
             }
         });
-        var monitor2 = new Monitor({
+        let monitor2 = new Monitor({
             consoleService: monitorConsole2,
             id: monitorId2,
             type: monitorType2,
@@ -80,7 +80,6 @@ describe('agent', function () {
             },
             function (err) {
                 should.not.exist(err);
-                var self = this;
                 master.request(monitorId1, moduleId1, msg1, function (err, resp) {
                     resp1Count++;
                     should.not.exist(err);
@@ -109,16 +108,16 @@ describe('agent', function () {
     });
 
     it('should return error to master if monitor cb with a error by reuqest', function (done) {
-        var monitorId = 'connector-server-1';
-        var monitorType = 'connector';
-        var moduleId = 'testModuleId';
-        var msg = {msg: 'message to monitor'};
-        var errMsg = 'some error message from monitor';
+        let monitorId = 'connector-server-1';
+        let monitorType = 'connector';
+        let moduleId = 'testModuleId';
+        let msg = {msg: 'message to monitor'};
+        let errMsg = 'some error message from monitor';
 
-        var reqCount = 0;
-        var respCount = 0;
+        let reqCount = 0;
+        let respCount = 0;
 
-        var monitorConsole = {
+        let monitorConsole = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 reqCount++;
@@ -127,8 +126,8 @@ describe('agent', function () {
             }
         };
 
-        var master = new Master(masterConsole);
-        var monitor = new Monitor({
+        let master = new Master(masterConsole);
+        let monitor = new Monitor({
             consoleService: monitorConsole,
             id: monitorId,
             type: monitorType,
@@ -162,19 +161,19 @@ describe('agent', function () {
     });
 
     it('should forward the message from master to the right monitor by notifyById', function (done) {
-        var monitorId1 = 'connector-server-1';
-        var monitorId2 = 'area-server-1';
-        var monitorType1 = 'connector';
-        var monitorType2 = 'area';
-        var moduleId1 = 'testModuleId1';
-        var moduleId2 = 'testModuleId2';
-        var msg1 = {msg: 'message to monitor1'};
-        var msg2 = {msg: 'message to monitor2'};
+        let monitorId1 = 'connector-server-1';
+        let monitorId2 = 'area-server-1';
+        let monitorType1 = 'connector';
+        let monitorType2 = 'area';
+        let moduleId1 = 'testModuleId1';
+        let moduleId2 = 'testModuleId2';
+        let msg1 = {msg: 'message to monitor1'};
+        let msg2 = {msg: 'message to monitor2'};
 
-        var req1Count = 0;
-        var req2Count = 0;
+        let req1Count = 0;
+        let req2Count = 0;
 
-        var monitorConsole1 = {
+        let monitorConsole1 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req1Count++;
@@ -183,7 +182,7 @@ describe('agent', function () {
             }
         };
 
-        var monitorConsole2 = {
+        let monitorConsole2 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req2Count++;
@@ -192,14 +191,14 @@ describe('agent', function () {
             }
         };
 
-        var master = new Master(masterConsole);
-        var monitor1 = new Monitor({
+        let master = new Master(masterConsole);
+        let monitor1 = new Monitor({
             consoleService: monitorConsole1,
             id: monitorId1,
             type: monitorType1,
             info: {host: '127.0.0.1'}
         });
-        var monitor2 = new Monitor({
+        let monitor2 = new Monitor({
             consoleService: monitorConsole2,
             id: monitorId2,
             type: monitorType2,
@@ -234,23 +233,23 @@ describe('agent', function () {
     });
 
     it('should forward the message to the right type monitors by notifyByType', function (done) {
-        var monitorId1 = 'connector-server-1';
-        var monitorId2 = 'connector-server-2';
-        var monitorId3 = 'area-server-1';
-        var monitorType1 = 'connector';
-        var monitorType2 = 'area';
-        var moduleId1 = 'testModuleId1';
-        var moduleId2 = 'testModuleId2';
-        var msg1 = {msg: 'message to monitorType1'};
-        var msg2 = {msg: 'message to monitorType2'};
+        let monitorId1 = 'connector-server-1';
+        let monitorId2 = 'connector-server-2';
+        let monitorId3 = 'area-server-1';
+        let monitorType1 = 'connector';
+        let monitorType2 = 'area';
+        let moduleId1 = 'testModuleId1';
+        let moduleId2 = 'testModuleId2';
+        let msg1 = {msg: 'message to monitorType1'};
+        let msg2 = {msg: 'message to monitorType2'};
 
-        var req1Count = 0;
-        var req2Count = 0;
-        var req3Count = 0;
-        var reqType1Count = 0;
-        var reqType2Count = 0;
+        let req1Count = 0;
+        let req2Count = 0;
+        let req3Count = 0;
+        let reqType1Count = 0;
+        let reqType2Count = 0;
 
-        var monitorConsole1 = {
+        let monitorConsole1 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req1Count++;
@@ -260,7 +259,7 @@ describe('agent', function () {
             }
         };
 
-        var monitorConsole2 = {
+        let monitorConsole2 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req2Count++;
@@ -270,7 +269,7 @@ describe('agent', function () {
             }
         };
 
-        var monitorConsole3 = {
+        let monitorConsole3 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req3Count++;
@@ -280,20 +279,20 @@ describe('agent', function () {
             }
         };
 
-        var master = new Master(masterConsole);
-        var monitor1 = new Monitor({
+        let master = new Master(masterConsole);
+        let monitor1 = new Monitor({
             consoleService: monitorConsole1,
             id: monitorId1,
             type: monitorType1,
             info: {host: '127.0.0.1'}
         });
-        var monitor2 = new Monitor({
+        let monitor2 = new Monitor({
             consoleService: monitorConsole2,
             id: monitorId2,
             type: monitorType1,
             info: {host: '127.0.0.1'}
         });
-        var monitor3 = new Monitor({
+        let monitor3 = new Monitor({
             consoleService: monitorConsole3,
             id: monitorId3,
             type: monitorType2,
@@ -335,17 +334,17 @@ describe('agent', function () {
     });
 
     it('should forward the message to all monitors by notifyAll', function (done) {
-        var monitorId1 = 'connector-server-1';
-        var monitorId2 = 'area-server-1';
-        var monitorType1 = 'connector';
-        var monitorType2 = 'area';
-        var orgModuleId = 'testModuleId';
-        var orgMsg = {msg: 'message to all monitor'};
+        let monitorId1 = 'connector-server-1';
+        let monitorId2 = 'area-server-1';
+        let monitorType1 = 'connector';
+        let monitorType2 = 'area';
+        let orgModuleId = 'testModuleId';
+        let orgMsg = {msg: 'message to all monitor'};
 
-        var req1Count = 0;
-        var req2Count = 0;
+        let req1Count = 0;
+        let req2Count = 0;
 
-        var monitorConsole1 = {
+        let monitorConsole1 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req1Count++;
@@ -354,7 +353,7 @@ describe('agent', function () {
             }
         };
 
-        var monitorConsole2 = {
+        let monitorConsole2 = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 req2Count++;
@@ -363,14 +362,14 @@ describe('agent', function () {
             }
         };
 
-        var master = new Master(masterConsole);
-        var monitor1 = new Monitor({
+        let master = new Master(masterConsole);
+        let monitor1 = new Monitor({
             consoleService: monitorConsole1,
             id: monitorId1,
             type: monitorType1,
             info: {host: '127.0.0.1'}
         });
-        var monitor2 = new Monitor({
+        let monitor2 = new Monitor({
             consoleService: monitorConsole2,
             id: monitorId2,
             type: monitorType2,
@@ -403,14 +402,14 @@ describe('agent', function () {
     });
 
     it('should push the message from monitor to master by notify', function (done) {
-        var monitorId = 'connector-server-1';
-        var monitorType = 'connector';
-        var orgModuleId = 'testModuleId';
-        var orgMsg = {msg: 'message to master'};
+        let monitorId = 'connector-server-1';
+        let monitorType = 'connector';
+        let orgModuleId = 'testModuleId';
+        let orgMsg = {msg: 'message to master'};
 
-        var reqCount = 0;
+        let reqCount = 0;
 
-        var masterConsole = {
+        let masterConsole = {
             authServer: authServer,
             execute: function (moduleId, method, msg, cb) {
                 reqCount++;
@@ -419,12 +418,12 @@ describe('agent', function () {
             }
         };
 
-        var monitorConsole = {
+        let monitorConsole = {
             authServer: authServer
         };
 
-        var master = new Master(masterConsole);
-        var monitor = new Monitor({
+        let master = new Master(masterConsole);
+        let monitor = new Monitor({
             consoleService: monitorConsole,
             id: monitorId,
             type: monitorType,
