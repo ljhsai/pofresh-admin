@@ -7,3 +7,7 @@
 =================
   * use es6
   * add socket.io protocol
+  
+2.0.2 / 2020-07-17
+=================
+  * fix mqtt client reconnect
