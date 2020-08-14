@@ -1,6 +1,6 @@
 {
     "name": "pofresh-admin",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "private": false,
     "dependencies": {
         "mqtt-connection": "^4.0.0",
