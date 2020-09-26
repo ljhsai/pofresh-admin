@@ -1,21 +1,22 @@
 {
-    "name": "pofresh-admin",
-    "version": "2.0.3",
-    "private": false,
-    "dependencies": {
-        "mqtt-connection": "^4.0.0",
-        "pofresh-logger": "^2.0.0",
-        "pofresh-monitor": "^2.0.0",
-        "pofresh-scheduler": "^2.0.0",
-        "socket.io": "^2.3.0",
-        "socket.io-client": "^2.3.0"
-    },
-    "peerDependencies": {
-        "pofresh-logger": "^2.0.0"
-    },
-    "devDependencies": {
-        "should": ">=0.0.1",
-        "mocha": ">=0.0.1",
-        "flow": ">=0.0.1"
-    }
+  "name": "pofresh-admin",
+  "version": "2.0.3",
+  "private": false,
+  "dependencies": {
+    "mqtt-connection": "^4.0.0",
+    "pofresh-logger": "^2.0.0",
+    "pofresh-monitor": "^2.0.0",
+    "pofresh-scheduler": "^2.0.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "tail-num": "^0.2.1"
+  },
+  "peerDependencies": {
+    "pofresh-logger": "^2.0.0"
+  },
+  "devDependencies": {
+    "should": ">=0.0.1",
+    "mocha": ">=0.0.1",
+    "flow": ">=0.0.1"
+  }
 }

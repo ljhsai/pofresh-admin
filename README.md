@@ -115,7 +115,7 @@ class Module {
   }
 
   monitorHandler (agent, msg) {
-    var word = agent.id + ' hello pofresh';
+    let word = agent.id + ' hello pofresh';
     // notify admin messages to master
     agent.notify(Module.moduleId, {serverId: agent.id, body: word});
   }
@@ -127,7 +127,7 @@ class Module {
         return;
       }
       // collect data from monitor
-      var data = agent.get(Module.moduleId);
+      let data = agent.get(Module.moduleId);
       if(!data) {
         data = {};
         agent.set(Module.moduleId, data);
